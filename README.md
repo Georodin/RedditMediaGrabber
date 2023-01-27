@@ -13,9 +13,9 @@ comes with a minimal HTML and PHP based web viewer as well.
 
 ## How to install
 
-*Download and install [Java 11](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html) or newer
-*Download and install [XAMPP](https://www.apachefriends.org/index.html)
-*Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
+* Download and install [Java 11](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html) or newer
+* Download and install [XAMPP](https://www.apachefriends.org/index.html)
+* Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
 
 ## How to use
 
@@ -44,14 +44,14 @@ The implemented LogUtility is not perfect and you will need to run the .jar file
 
 ## Grabber Dependencies 
 
-*jcodec-0.2.5.jar (create preview thumbnails from MP4 files)
-*jcodecjavase-0.2.5.jar (create preview thumbnails from MP4 files)
-*mysql-connector-j-8.0.31.jar (connect to XAMPP SQL Server)
+* jcodec-0.2.5.jar (create preview thumbnails from MP4 files)
+* jcodecjavase-0.2.5.jar (create preview thumbnails from MP4 files)
+* mysql-connector-j-8.0.31.jar (connect to XAMPP SQL Server)
 
 ## Known Issues
 
-*missing compatibility to some media hosts 
-*not tested for Unix or Mac systems
-*unclean PHP Viewer code
-*unclean MVC Java implementation
-*unclean Java class, field and method setups
+* missing compatibility to some media hosts 
+* not tested for Unix or Mac systems
+* unclean PHP Viewer code
+* unclean MVC Java implementation
+* unclean Java class, field and method setups
