@@ -6,6 +6,9 @@
 Reddit Media Grabber is a Java 11 tool to download and save various media subreddits. It is based on Java and SQL to download the media and
 comes with a minimal HTML and PHP based web viewer as well.
 
+<img src="https://raw.githubusercontent.com/Georodin/RedditMediaGrabber/main/logo/interface.png"
+     alt="Reddit Media Grabber interface" width="540" height="492">
+
 ## Requirements
 
 * Java 11
@@ -44,12 +47,17 @@ The implemented LogUtility is not perfect and you will need to run the .jar file
 
 ## Grabber Dependencies 
 
+* json-20210307.jar (to parse JSON strings)
+* jsoup-1.13.1.jar (to parse HTML strings)
+* flatlaf-1.2.jar (software visual theme)
+* flatlaf-intellij-themes-1.2.jar (software visual theme)
 * jcodec-0.2.5.jar (create preview thumbnails from MP4 files)
 * jcodecjavase-0.2.5.jar (create preview thumbnails from MP4 files)
 * mysql-connector-j-8.0.31.jar (connect to XAMPP SQL Server)
 
 ## Known Issues
 
+* deprecated code comments
 * missing compatibility for some media hosts 
 * not tested for Unix or Mac systems
 * unclean PHP Viewer code
