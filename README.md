@@ -1,7 +1,7 @@
 # Reddit Media Grabber
 
 <img src="https://raw.githubusercontent.com/Georodin/RedditMediaGrabber/main/logo/Grabber.png" align="right"
-     alt="Size Limit logo by Anton Lovchikov" width="180" height="180">
+     alt="Reddit Media Grabber logo" width="180" height="180">
 
 Reddit Media Grabber is a Java 11 tool to download and save various media subreddits. It is based on Java and SQL to download the media and
 comes with a minimal HTML and PHP based web viewer as well.
@@ -13,9 +13,9 @@ comes with a minimal HTML and PHP based web viewer as well.
 
 ## How to install
 
-Download and install [Java 11](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html)
-Download and install [XAMPP](https://www.apachefriends.org/index.html)
-Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
+*Download and install [Java 11](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html) or newer
+*Download and install [XAMPP](https://www.apachefriends.org/index.html)
+*Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
 
 ## How to use
 
