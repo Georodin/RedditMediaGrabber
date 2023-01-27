@@ -33,7 +33,7 @@ When you select a user, make sure to tick the user checkbox.
 
 If you are adding a subreddit, the new button will grab new post, while leaving it unchecked will only download the "Hot" section.
 
-When you added a subreddit or user, then you can press "Start" and the Reddit Media Grabber will grab all media from entry and save it to your disk.
+When you added a subreddit or user, then you can press "Start" and the Reddit Media Grabber will grab all media from the user or subreddit and save it to your disk.
 
 Now you can also reload the [local Viewer page](http://localhost/redditgrabber). 
 
@@ -50,7 +50,7 @@ The implemented LogUtility is not perfect and you will need to run the .jar file
 
 ## Known Issues
 
-* missing compatibility to some media hosts 
+* missing compatibility for some media hosts 
 * not tested for Unix or Mac systems
 * unclean PHP Viewer code
 * unclean MVC Java implementation
