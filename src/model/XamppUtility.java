@@ -1,6 +1,10 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,6 +40,7 @@ public class XamppUtility {
 	    //    
 	    if (fc.showDialog(controller.getMv().frame, "Deploy") == JFileChooser.APPROVE_OPTION) { 
 	      controller.changeXamppPath(fc.getSelectedFile().toString()); 
+	      updateXAMPPpath(controller);
 	      copyDirectory(fc.getSelectedFile().toString()+File.separator+"htdocs"+File.separator+"redditgrabber"+File.separator);
 	      controller.saveProfile();
 	    }
@@ -72,6 +77,88 @@ public class XamppUtility {
 		 }catch (Exception e) {
 			e.printStackTrace();
 			LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation);
+		}
+	}
+	
+	public static void updateXAMPPpath(Controller controller) {
+		
+		System.out.println("Hello?");
+		
+		File inputFile = new File(controller.getRp().xamppPath+File.separator+"apache"+File.separator+"conf"+File.separator+"httpd.conf");
+		File tempFile = new File(controller.getRp().xamppPath+File.separator+"apache"+File.separator+"conf"+File.separator+"tmp.conf");
+		
+		
+		try{
+			tempFile.createNewFile();
+			
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+			String currentLine;
+			
+			boolean flag_skip = false;
+			boolean flag_insert = false;
+			boolean flag_found = false;
+	
+			while((currentLine = reader.readLine()) != null) {
+			    // trim newline when comparing with
+			    String trimmedLine = currentLine.trim();
+			    if(trimmedLine.equals("# redditgrabber content path START")) {
+			    	flag_skip = true;
+			    	flag_found = true;
+			    }
+			    
+			    if(!flag_skip) {
+			    	writer.write(currentLine + System.getProperty("line.separator"));
+			    }
+			    
+			    if(trimmedLine.equals("# redditgrabber content path END")) {
+			    	flag_insert = true;
+			    	flag_skip = false;
+			    }
+
+			    
+			    if(flag_insert) {
+			    	
+			    	String output = ""+
+			    			"# redditgrabber content path START" + System.getProperty("line.separator")+
+			    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+"\""+System.getProperty("line.separator")+
+			    			"<Directory \""+controller.getRp().getPath()+File.separator+"\">" + System.getProperty("line.separator")+
+			    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
+			    	        "	AllowOverride all" + System.getProperty("line.separator")+
+			    	    	"	Require all granted" + System.getProperty("line.separator")+
+			    	    	"</Directory>" + System.getProperty("line.separator")+
+			    	    	"# redditgrabber content path END" + System.getProperty("line.separator");
+			    	
+			    	writer.write(output);
+			    }
+			    
+			}
+			
+			if(!flag_found) {
+		    	String output = ""+
+		    			"# redditgrabber content path START" + System.getProperty("line.separator")+
+		    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+"\""+System.getProperty("line.separator")+
+		    			"<Directory \""+controller.getRp().getPath()+File.separator+"\">" + System.getProperty("line.separator")+
+		    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
+		    	        "	AllowOverride all" + System.getProperty("line.separator")+
+		    	    	"	Require all granted" + System.getProperty("line.separator")+
+		    	    	"</Directory>" + System.getProperty("line.separator")+
+		    	    	"# redditgrabber content path END" + System.getProperty("line.separator");
+		    	
+		    	writer.write(output);
+			}
+			writer.close(); 
+			reader.close();
+			
+			
+			
+			inputFile.delete();
+			boolean successful = tempFile.renameTo(inputFile);
+			System.out.println(successful);
+		} catch (IOException e) {
+			e.printStackTrace();
+			LogUtility.newLineToLog("ERROR: Failed to deploy XAMPP httpd.conf changes.");
 		}
 	}
 }
