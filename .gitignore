@@ -1,0 +1,7 @@
+.settings/
+bin/
+.classpath
+.project
+faulty.txt
+log.txt
+reddit.profile
