@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+
 
 import controller.Controller;
 
@@ -46,21 +49,58 @@ public class XamppUtility {
 	    }
 	}
 	
+	
+	public void copyFile(String destination, String file) {
+		try {
+			Files.copy(getClass().getResourceAsStream("/deploy/"+file), Paths.get(destination+file), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			LogUtility.newLineToLog("ERROR: Could not deploy "+file+" to "+destination+".");
+			e.printStackTrace();
+		}
+	}
+	
+	//REPLACE WITH https://stackoverflow.com/questions/10308221/how-to-copy-file-inside-jar-to-outside-the-jar
 	public void copyDirectory(String destinationDirectoryLocation) {
+		
+		Path path = Paths.get(destinationDirectoryLocation);
+		try {
+			Files.createDirectory(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> files = new ArrayList<>();
+		
+		files.add("ajax.php");
+		files.add("gallery.svg");
+		files.add("index.php");
+		files.add("jquery-3.6.3.min.js");
+		files.add("moon.svg");
+		files.add("Reddit_logo.svg");
+		files.add("style.css");
+		
+		files.forEach(file -> {
+			copyFile(destinationDirectoryLocation, file);
+		});
+		
+		
+		/*System.out.println("Trying to save to: "+destinationDirectoryLocation);
 		 try {
 			Path path = Paths.get(destinationDirectoryLocation);
-			
+			System.out.println("REACH 00");
 			if(!Files.exists(path)) {
 				try {
-					Files.createDirectories(path);
-				} catch (IOException e) {
-					LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation);
+					new File(destinationDirectoryLocation.substring(destinationDirectoryLocation.length()-1)).mkdirs();
+				} catch (Exception e) {
+					LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation.substring(destinationDirectoryLocation.length()-1));
 					e.printStackTrace();
 				}
 			}
+			System.out.println("REACH 01");
+			System.out.println(getClass().getResource("/deploy").toURI());
 		    Files.walk(Paths.get(getClass().getResource("/deploy").toURI()))
 		      .forEach(source -> {
-		    	  
+		    	  System.out.println("REACH 02222");
 		          Path destination = Paths.get(destinationDirectoryLocation, source.getFileName().toString());
 		          
 		          File f = new File(source.toString());
@@ -77,12 +117,10 @@ public class XamppUtility {
 		 }catch (Exception e) {
 			e.printStackTrace();
 			LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation);
-		}
+		}*/
 	}
 	
 	public static void updateXAMPPpath(Controller controller) {
-		
-		System.out.println("Hello?");
 		
 		File inputFile = new File(controller.getRp().xamppPath+File.separator+"apache"+File.separator+"conf"+File.separator+"httpd.conf");
 		File tempFile = new File(controller.getRp().xamppPath+File.separator+"apache"+File.separator+"conf"+File.separator+"tmp.conf");
@@ -122,8 +160,8 @@ public class XamppUtility {
 			    	
 			    	String output = ""+
 			    			"# redditgrabber content path START" + System.getProperty("line.separator")+
-			    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+"\""+System.getProperty("line.separator")+
-			    			"<Directory \""+controller.getRp().getPath()+File.separator+"\">" + System.getProperty("line.separator")+
+			    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+File.separator+"\""+System.getProperty("line.separator")+
+			    			"<Directory \""+controller.getRp().getPath()+"\">" + System.getProperty("line.separator")+
 			    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
 			    	        "	AllowOverride all" + System.getProperty("line.separator")+
 			    	    	"	Require all granted" + System.getProperty("line.separator")+
@@ -138,8 +176,8 @@ public class XamppUtility {
 			if(!flag_found) {
 		    	String output = ""+
 		    			"# redditgrabber content path START" + System.getProperty("line.separator")+
-		    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+"\""+System.getProperty("line.separator")+
-		    			"<Directory \""+controller.getRp().getPath()+File.separator+"\">" + System.getProperty("line.separator")+
+		    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+File.separator+"\""+System.getProperty("line.separator")+
+		    			"<Directory \""+controller.getRp().getPath()+"\">" + System.getProperty("line.separator")+
 		    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
 		    	        "	AllowOverride all" + System.getProperty("line.separator")+
 		    	    	"	Require all granted" + System.getProperty("line.separator")+
@@ -155,7 +193,6 @@ public class XamppUtility {
 			
 			inputFile.delete();
 			boolean successful = tempFile.renameTo(inputFile);
-			System.out.println(successful);
 		} catch (IOException e) {
 			e.printStackTrace();
 			LogUtility.newLineToLog("ERROR: Failed to deploy XAMPP httpd.conf changes.");
