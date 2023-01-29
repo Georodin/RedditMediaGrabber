@@ -16,7 +16,7 @@ comes with a minimal HTML and PHP based web viewer as well.
 
 ## How to install
 
-* Download and install [Java 11](https://www.oracle.com/de/java/technologies/javase/jdk11-archive-downloads.html) or newer
+* Download and install [Java 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot) or newer
 * Download and install [XAMPP](https://www.apachefriends.org/index.html)
 * Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
 
