@@ -160,8 +160,9 @@ public class XamppUtility {
 			    	
 			    	String output = ""+
 			    			"# redditgrabber content path START" + System.getProperty("line.separator")+
-			    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+File.separator+"\""+System.getProperty("line.separator")+
-			    			"<Directory \""+controller.getRp().getPath()+"\">" + System.getProperty("line.separator")+
+			    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath().replace('\\', '/') +"/\""+System.getProperty("line.separator")+
+			    			//not sure if this is even needed
+			    			"<Directory \""+controller.getRp().getPath().replace('\\', '/') +"\">" + System.getProperty("line.separator")+
 			    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
 			    	        "	AllowOverride all" + System.getProperty("line.separator")+
 			    	    	"	Require all granted" + System.getProperty("line.separator")+
@@ -172,12 +173,12 @@ public class XamppUtility {
 			    }
 			    
 			}
-			
 			if(!flag_found) {
 		    	String output = ""+
 		    			"# redditgrabber content path START" + System.getProperty("line.separator")+
-		    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath()+File.separator+"\""+System.getProperty("line.separator")+
-		    			"<Directory \""+controller.getRp().getPath()+"\">" + System.getProperty("line.separator")+
+		    			"Alias \"/redditgrabber/cl\" \"" + controller.getRp().getPath().replace('\\', '/') +"/\""+System.getProperty("line.separator")+
+		    			//not sure if this is even needed
+		    			"<Directory \""+controller.getRp().getPath().replace('\\', '/') +"\">" + System.getProperty("line.separator")+
 		    	        "	Options Indexes MultiViews" + System.getProperty("line.separator")+
 		    	        "	AllowOverride all" + System.getProperty("line.separator")+
 		    	    	"	Require all granted" + System.getProperty("line.separator")+
