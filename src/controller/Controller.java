@@ -8,6 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import javax.swing.Timer;
@@ -39,7 +42,14 @@ public class Controller {
 		
 		if(rp.getPath()==null) {
 			////System.out.println("pt: "+System.getProperty("user.dir"));
-			rp.setPath(System.getProperty("user.dir"));
+			try {
+				Path path = Paths.get(".."+File.separator+"default_media");
+				Files.createDirectories(path);
+				rp.setPath(new File(".."+File.separator+"default_media").getCanonicalPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		mv = new MainView(this);
