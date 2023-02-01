@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +29,7 @@ public class ImageConverter {
 			return AWTUtil.toBufferedImage(picture);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		return null;
 	}
@@ -46,7 +48,7 @@ public class ImageConverter {
 				preview = removeAlphaChannel(ImageIO.read(inputStream));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			}
 		}
 		
@@ -64,7 +66,7 @@ public class ImageConverter {
 		} catch (IOException e) {
 //			//System.out.println("image: "+preview);
 //			//System.out.println("loc: "+outputfile);
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return false;
 		}
 	}
@@ -81,7 +83,7 @@ public class ImageConverter {
 			fileSize = fileChannel.size() / 1024;
 			fileChannel.close();
 		}catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		
 		try {
@@ -94,7 +96,7 @@ public class ImageConverter {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
         
 		return output;
@@ -110,7 +112,7 @@ public class ImageConverter {
 			
 			inputStream.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		return outputImage;
 	}

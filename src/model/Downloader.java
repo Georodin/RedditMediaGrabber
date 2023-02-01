@@ -3,6 +3,8 @@ package model;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -52,7 +54,7 @@ public class Downloader {
 		} catch (Exception e) {
 			
 			LogUtility.newLineToLog("ERROR: Could not download - "+urlstring);
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return output;
 		}
 
@@ -97,7 +99,7 @@ public class Downloader {
 //			//System.out.println("download to: "+path);
 //			//System.out.println("with date: "+date);
 //			//System.out.println("affected subreddit: "+subreddit);
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		
 		return fileNames;
@@ -132,13 +134,13 @@ public class Downloader {
 						
 						ImageConverter.createPreview(outputPath);
 					} catch (Exception e) {
-						e.printStackTrace();
+						StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 					}
 				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 
 		return fileNames;

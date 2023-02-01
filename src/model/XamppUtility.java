@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,7 +57,7 @@ public class XamppUtility {
 			Files.copy(getClass().getResourceAsStream("/deploy/"+file), Paths.get(destination+file), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			LogUtility.newLineToLog("ERROR: Could not deploy "+file+" to "+destination+".");
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 	}
 	
@@ -66,7 +68,7 @@ public class XamppUtility {
 		try {
 			Files.createDirectory(path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		
 		ArrayList<String> files = new ArrayList<>();
@@ -93,7 +95,7 @@ public class XamppUtility {
 					new File(destinationDirectoryLocation.substring(destinationDirectoryLocation.length()-1)).mkdirs();
 				} catch (Exception e) {
 					LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation.substring(destinationDirectoryLocation.length()-1));
-					e.printStackTrace();
+					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
 			}
 			System.out.println("REACH 01");
@@ -108,14 +110,14 @@ public class XamppUtility {
 			          try {
 			              Files.copy(source, destination);
 			          } catch (IOException e) {
-			              e.printStackTrace();
+			              StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			          }
 		          }
 		      });
 		    
 		    
 		 }catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			LogUtility.newLineToLog("ERROR: Failed to deploy the xampp viewer files at: "+destinationDirectoryLocation);
 		}*/
 	}
@@ -195,7 +197,7 @@ public class XamppUtility {
 			inputFile.delete();
 			boolean successful = tempFile.renameTo(inputFile);
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			LogUtility.newLineToLog("ERROR: Failed to deploy XAMPP httpd.conf changes.");
 		}
 	}

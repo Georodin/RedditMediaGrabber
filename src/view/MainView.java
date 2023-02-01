@@ -10,6 +10,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,7 @@ public class MainView {
 //			PrintWriter pw = new PrintWriter(sw);
 //			e.printStackTrace(pw);
 //			LogUtility.newLineToLog("Critical!! :"+sw.toString());
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 
 		frame.setIconImages(icons);
@@ -93,7 +95,7 @@ public class MainView {
 				try {
 					java.awt.Desktop.getDesktop().browse(new URI("http://localhost/redditgrabber"));
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); ex.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
 			}
 		});
@@ -130,9 +132,9 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Desktop.getDesktop().open(new File(controller.getRp().getPath()));
-				} catch (IOException e1) {
+				} catch (IOException ex) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); ex.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
 			}
 		});

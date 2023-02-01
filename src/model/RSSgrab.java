@@ -1,6 +1,8 @@
 package model;
 
 import java.io.ByteArrayInputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -191,7 +193,7 @@ public class RSSgrab {
         	client = null;
         	System.gc();
 		}catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		
 		SQLBridge.writeEntrysToSubreddit(subReddit.getSubReddit(), (ArrayList<Entry>) output);

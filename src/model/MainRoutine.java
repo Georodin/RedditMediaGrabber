@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +32,7 @@ public class MainRoutine {
 				try {
 					Files.createDirectories(path);
 				} catch (IOException e) {
-					e.printStackTrace();
+					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
 			}
 			
@@ -38,7 +40,7 @@ public class MainRoutine {
 				try {
 					Files.createDirectories(path_previews);
 				} catch (IOException e) {
-					e.printStackTrace();
+					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
 			}
 			

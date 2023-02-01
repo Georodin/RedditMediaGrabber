@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.Controller;
+import model.LogUtility;
 
 public class Windows {
 	static Font font = new Font("Verdana", Font.PLAIN, 14);
@@ -55,7 +58,7 @@ public class Windows {
 //			PrintWriter pw = new PrintWriter(sw);
 //			e.printStackTrace(pw);
 //			LogUtility.newLineToLog("Critical!! :"+sw.toString());
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		frame.setIconImages(icons);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

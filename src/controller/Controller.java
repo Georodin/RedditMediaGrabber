@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,8 +49,11 @@ public class Controller {
 				Files.createDirectories(path);
 				rp.setPath(new File(".."+File.separator+"default_media").getCanonicalPath());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				e.printStackTrace(pw);
+				
+				LogUtility.newLineToErrorLog(sw);
 			}
 		}
 		
@@ -188,7 +193,7 @@ public class Controller {
               
             ////System.out.println("Object has been serialized");
         }catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
     
 	}

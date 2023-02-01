@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.Normalizer;
@@ -35,7 +37,7 @@ public class JSONparse {
 				jsonString = getURLSource("https://www.reddit.com/r/"+url+"/.json");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			output[0] = false;
 			output[1] = "error: webrequest(malformed subreddit?)";
 			return output;
@@ -64,7 +66,7 @@ public class JSONparse {
 			try {
 				jsonString = getURLSource(entry.uri+".json");
 			} catch (IOException e) {
-				e.printStackTrace();
+				StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				return null;
 			}
 			
@@ -96,7 +98,7 @@ public class JSONparse {
 //			//System.out.println("error at uri: "+entry.uri);
 //			writeToFile(entry.uri, "uri");
 //			writeToFile(jsonString, "error");
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return null;
 		}
 	}
@@ -108,6 +110,7 @@ public class JSONparse {
         URLConnection urlConnection = urlObject.openConnection();
         urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
         
+        System.out.println();
         return toString(urlConnection.getInputStream());
     }
     
@@ -134,7 +137,7 @@ public class JSONparse {
 		    bwr.flush();
 		    bwr.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 	}
 

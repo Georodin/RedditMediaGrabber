@@ -30,7 +30,7 @@ public class SubReddit implements Serializable{
 //				Files.createDirectories(path);
 //			} catch (IOException e) {
 //				//System.out.println("serious error, could not create directory at: "+path);
-//				e.printStackTrace();
+//				StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 //			}
 //		}
 	}

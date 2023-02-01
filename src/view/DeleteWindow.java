@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class DeleteWindow extends JFrame {
 //			PrintWriter pw = new PrintWriter(sw);
 //			e.printStackTrace(pw);
 //			LogUtility.newLineToLog("Critical!! :"+sw.toString());
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		setIconImages(icons);
 		this.setController(controller);

@@ -1,5 +1,7 @@
 package model;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -27,13 +29,13 @@ public class SQLBridge {
 			
             return true;
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	//System.out.println(controller.status);
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is a localhost mySQL Server started?");
         	return false;
 		}catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	return false;
 		}
 	} 
@@ -71,11 +73,11 @@ public class SQLBridge {
             LogUtility.newLineToLog("Info: Created meta info table.");
             return true;
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Meta info table not created...");
 		}catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
         return false;
 	}
@@ -111,11 +113,11 @@ public class SQLBridge {
 	            
 	            stmt.executeUpdate(sql);
 	        }catch (CommunicationsException e) {
-	        	e.printStackTrace();
+	        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 	        	controller.status = "ERROR: Could not connect to SQL Database...";
 	        	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Meta info table not created...");
 			}catch (Exception e) {
-	        	e.printStackTrace();
+	        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			}
 		}
 	}
@@ -136,12 +138,12 @@ public class SQLBridge {
             return false;
             
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
         	return false;
 		}catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	return false;
 		}
     	
@@ -156,12 +158,12 @@ public class SQLBridge {
             return true;
             
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
         	return false;
 		}catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	return false;
 		}
     }
@@ -187,12 +189,12 @@ public class SQLBridge {
             return false;
             
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
         	return false;
 		}catch (Exception e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return false;
 		}
     }
@@ -219,11 +221,11 @@ public class SQLBridge {
 			}
     		
     	}catch (CommunicationsException e) {
-    		e.printStackTrace();
+    		StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
     		controller.status = "ERROR: Could not connect to SQL Database...";
     		LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
     	}catch (Exception e) {
-    		e.printStackTrace();
+    		StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
     		LogUtility.newLineToLog("ERROR: Unknown"+e.toString());
     	}
     }
@@ -239,12 +241,12 @@ public class SQLBridge {
                 stmt.executeUpdate("DROP TABLE `reddit`.`"+table+"`");
                 LogUtility.newLineToLog("Info: Deleted the SQL table "+table);
     		}catch (CommunicationsException e) {
-            	e.printStackTrace();
+            	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
             	controller.status = "ERROR: Could not connect to SQL Database...";
             	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Failed to delete table: "+table);
             	return false;
     		}catch (Exception e) {
-            	e.printStackTrace();
+            	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
             	return false;
     		}
     	}
@@ -276,12 +278,12 @@ public class SQLBridge {
             return true;
             
         }catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
         	return false;
 		}catch (Exception e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	return false;
 		}
     }
@@ -312,12 +314,12 @@ public class SQLBridge {
             	output.add(entry);
             }
     	}catch (CommunicationsException e) {
-        	e.printStackTrace();
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
     	
     	return output;
@@ -348,12 +350,12 @@ public class SQLBridge {
                 return true;
                 
             }catch (CommunicationsException e) {
-            	e.printStackTrace();
+            	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
             	controller.status = "ERROR: Could not connect to SQL Database...";
             	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
             	return false;
     		}catch (Exception e) {
-            	e.printStackTrace();
+            	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
             	return false;
     		}
     	}

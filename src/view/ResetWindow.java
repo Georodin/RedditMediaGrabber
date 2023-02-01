@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class ResetWindow extends JFrame {
 //			PrintWriter pw = new PrintWriter(sw);
 //			e.printStackTrace(pw);
 //			LogUtility.newLineToLog("Critical!! :"+sw.toString());
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 		}
 		setIconImages(icons);
 		this.setController(controller);

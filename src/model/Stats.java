@@ -1,6 +1,8 @@
 package model;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,7 +79,7 @@ public class Stats {
 			            .filter(p -> !p.toFile().isDirectory())
 			            .count();
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return 0;
 		}
 	  }
@@ -96,7 +98,7 @@ public class Stats {
 			    }
 			});
 		} catch (IOException e) {
-			e.printStackTrace();
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return "error";
 		}
 	    
