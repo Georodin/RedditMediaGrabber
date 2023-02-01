@@ -11,34 +11,39 @@ comes with a minimal HTML and PHP based web viewer as well.
 
 ## Requirements
 
-* Java 11
 * XAMPP to run a local SQL and PHP server
 
 ## How to install
 
-* Download and install [Java 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot) or newer
 * Download and install [XAMPP](https://www.apachefriends.org/index.html)
 * Download the [latest release here](https://github.com/Georodin/RedditMediaGrabber/releases/latest)
 
 ## How to use
 
-Start XAMPP and start within XAMPP the Apache module for the Viewer. 
-Then start the MySQL module for the Grabber and the Viewer. 
-This will provide a PHP server to the Viewer and a SQL server to the Grabber and Viewer. 
+1. Start XAMPP and start within XAMPP the Apache module for the Viewer. 
+2. Then start the MySQL module for the Grabber and the Viewer. 
+   - This will provide a PHP server to the Viewer and a SQL server to the Grabber and Viewer. 
 
-Run the RedditMediaGrabber.exe and go to "Options" -> "Set XAMPP path" -> find and select the XAMPP root path -> press "Deploy". This will move the necessary Viewer files
-to the XAMPP directory. Now you can open the Viewer via "Options" -> "Open Viewer" or by visiting the [local page](http://localhost/redditgrabber) here.
+3. Extract the RedditMediaGrabber folder from the zip file and navigate into the bin folder.
 
-Press "change Path" to select the storage directory of the downloaded media files. You will need to restart the XAMPP Apache module every time you change the media path.
+4. Run the RedditMediaGrabber.exe in the bin folder and go to "Options" -> "Set XAMPP path" -> find and select the XAMPP root path -> press "Deploy". 
+   - This will move the necessary Viewer files to the XAMPP directory. 
+   
+5. Now you can open the Viewer via "Options" -> "Open Viewer" or by visiting the [local page](http://localhost/redditgrabber) here.
 
-Now add your first subreddit or reddit user by clicking the "+" button. You will just need the name and not the whole URL of the subreddit or user.
-When you select a user, make sure to tick the user checkbox.
+6. Press "change Path" to select the storage directory of the downloaded media files. 
+   - You will need to restart the XAMPP Apache module every time you change the media path.
 
-If you are adding a subreddit, the new button will grab new post, while leaving it unchecked will only download the "Hot" section.
+7. Now add your first subreddit or reddit user by clicking the "+" button. 
+   - You will just need the name and not the whole URL of the subreddit or user.
+   - When you select a user, make sure to tick the user checkbox.
+   - If you are adding a subreddit, the new button will grab new post, while leaving it unchecked will only download the "Hot" section.
 
-When you added a subreddit or user, then you can press "Start" and the Reddit Media Grabber will grab all media from the user or subreddit and save it to your disk.
 
-Now you can also reload the [local Viewer page](http://localhost/redditgrabber). 
+8. When you added a subreddit or user, then you can press "Start" and the Reddit Media Grabber will grab all media from the user or subreddit and save it to your disk.
+   - Adjust the time interval slider to your liking.
+
+9. Now reload the [local Viewer page](http://localhost/redditgrabber) and you should see the first entrys. 
 
 ## Log file
 
