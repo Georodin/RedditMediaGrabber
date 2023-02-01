@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -99,6 +100,7 @@ public class FrameComponents {
 		timeSlider.setValue(controller.getTimeIndex());
 		timeSlider.setToolTipText("Move the slider to change the download interval");
 		timeDisplay.setToolTipText("Time interval to restart the download process");
+		path.setToolTipText(controller.getRp().getPath());
 
 		stats = new Stats(controller);
 
@@ -319,7 +321,7 @@ public class FrameComponents {
 		pathWrapper.setLayout(new BorderLayout());
 
 		pathWrapper.add(path, BorderLayout.WEST);
-		path.setToolTipText("Media download path");
+		path.setToolTipText(controller.getRp().getPath());
 		pathWrapper.add(pathButton, BorderLayout.EAST);
 
 		pathButton.addActionListener(new ActionListener() {
@@ -328,8 +330,9 @@ public class FrameComponents {
 			public void actionPerformed(ActionEvent e) {
 
 				fc = new JFileChooser();
-				fc.setCurrentDirectory(new java.io.File("."));
+				fc.setCurrentDirectory(new File(controller.getRp().getPath()));
 				fc.setDialogTitle("Select path");
+				
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				//
 				// disable the "All files" option.
@@ -340,6 +343,7 @@ public class FrameComponents {
 					controller.changePath(fc.getSelectedFile().toString());
 					path.setText(controller.getRp().getPath());
 					controller.saveProfile();
+					path.setToolTipText(controller.getRp().getPath());
 				} else {
 //			      //System.out.println("No Selection ");
 				}
