@@ -20,8 +20,59 @@ public class SQLBridge {
 	
 	public static Controller controller;
 	
+	public static boolean removeTables(ArrayList<String> tables){
+		checkDBCreated();
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = connection.createStatement();) {
+			
+			for(String table : tables) {
+	            String sql = "DROP TABLE `reddit`.`"+table+"`"; 
+	            stmt.executeUpdate(sql);
+			}
+			
+		}catch (CommunicationsException e) {
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
+			controller.status = "ERROR: Could not connect to SQL Database...";
+			LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
+			return false;
+		}catch (Exception e) {
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
+			return false;
+		}
+		return true;
+	}
+	
+	public static ArrayList<String> getTableList(){
+		checkDBCreated();
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", "")) {
+		        
+			ArrayList<String> output = new ArrayList<>(); 
+			
+		      DatabaseMetaData dbmd = connection.getMetaData();
+		      ResultSet rs = dbmd.getTables(null, null, "%", null);
+		      while (rs.next()) {
+		          if ("reddit".equals(rs.getString("TABLE_CAT"))&&!rs.getString("TABLE_NAME").equals("redditgrabber_meta")) {
+		        	  output.add(rs.getString("TABLE_NAME"));
+		           }
+		      }
+
+		    rs.close();
+	        return output;
+	            
+	        }catch (CommunicationsException e) {
+	        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
+	        	controller.status = "ERROR: Could not connect to SQL Database...";
+	        	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is the a local SQL Server started?");
+	        	return null;
+			}catch (Exception e) {
+				StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
+				return null;
+			}
+	}
+	
 	public static Boolean isDatabaseOnline() {
-		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", "")) {
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", "")) {
 			if(!isTableCreated("redditgrabber_meta")) {
 				LogUtility.newLineToLog("Warning: Could not find meta info table. Trying to create it...");
 				createMetaTable();
@@ -32,7 +83,7 @@ public class SQLBridge {
         	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         	controller.status = "ERROR: Could not connect to SQL Database...";
         	//System.out.println(controller.status);
-        	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is a localhost mySQL Server started?");
+        	LogUtility.newLineToLog("ERROR: Could not connect to SQL Database. Is a 127.0.0.1 mySQL Server started?");
         	return false;
 		}catch (Exception e) {
         	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
@@ -43,7 +94,7 @@ public class SQLBridge {
 	
     
 	static Boolean createMetaTable() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
         	
             stmt.executeUpdate("use reddit;");
             
@@ -96,7 +147,7 @@ public class SQLBridge {
 		}
 		
 		if(flag_continue) {
-	        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+	        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
 	        	
 	            stmt.executeUpdate("use reddit;");
 	            
@@ -123,7 +174,7 @@ public class SQLBridge {
 	}
 	
     static Boolean isDBCreated() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
         	
             ResultSet resultSet = conn.getMetaData().getCatalogs();
 
@@ -150,7 +201,7 @@ public class SQLBridge {
     }
     
     static Boolean createDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
         	
             String sql = "CREATE DATABASE reddit";
             stmt.executeUpdate(sql);
@@ -170,7 +221,7 @@ public class SQLBridge {
     
     static Boolean isTableCreated(String table) {
     	checkDBCreated();
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
         	
         	table = table.replace('/', '_');
         	
@@ -203,7 +254,7 @@ public class SQLBridge {
     	
     	Boolean flag = false;
     	
-    	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+    	try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
 
 			ResultSet rs = conn.getMetaData().getCatalogs();
 
@@ -236,7 +287,7 @@ public class SQLBridge {
     	table = table.replace('/', '_');
     	
     	if(isTableCreated(table)) {
-    		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/reddit", "root", ""); Statement stmt = conn.createStatement();) {
+    		try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/reddit", "root", ""); Statement stmt = conn.createStatement();) {
             	
                 stmt.executeUpdate("DROP TABLE `reddit`.`"+table+"`");
                 LogUtility.newLineToLog("Info: Deleted the SQL table "+table);
@@ -258,7 +309,7 @@ public class SQLBridge {
     	
     	table = table.replace('/', '_');
     	
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost", "root", ""); Statement stmt = conn.createStatement();) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", ""); Statement stmt = conn.createStatement();) {
         	
             stmt.executeUpdate("use reddit;");
             
@@ -297,7 +348,7 @@ public class SQLBridge {
     	
     	ArrayList<Entry> output = new ArrayList<Entry>();
     	
-    	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/reddit", "root", ""); Statement stmt = conn.createStatement();) {
+    	try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/reddit", "root", ""); Statement stmt = conn.createStatement();) {
     		String SQL = "SELECT * from "+subreddit+" LIMIT "+limiter;
     		
     		if(limiter==0) {
@@ -334,7 +385,7 @@ public class SQLBridge {
         		createTable(subreddit);
         	}
         	
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/reddit", "root", ""); Statement stmt = conn.createStatement();) {
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/reddit", "root", ""); Statement stmt = conn.createStatement();) {
             	
             	String sql = "INSERT INTO `"+subreddit+"` (`keyId`, `user`, `userUri`, `id`, `uri`, `date`, `title`, `media`) VALUES ";
         		for (Iterator<Entry> it = entrys.iterator() ; it.hasNext() ; ){
