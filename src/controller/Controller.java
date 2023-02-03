@@ -69,11 +69,11 @@ public class Controller {
 		});
 		progressTimer.setRepeats(true);
 		
-		
 		if(rp.started) {
 			rp.pullAll();
 			progressTimer.start();
 		}
+		
 	}
 	
 	public int getTimeIndex() {
@@ -165,12 +165,12 @@ public class Controller {
           
         catch(IOException ex)
         {
-            //System.out.println("IOException is caught");
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); ex.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         }
           
         catch(ClassNotFoundException ex)
         {
-            //System.out.println("ClassNotFoundException is caught");
+        	StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); ex.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
         }
 		return object;
 	}

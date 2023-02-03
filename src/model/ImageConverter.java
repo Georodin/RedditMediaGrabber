@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 
 import org.jcodec.api.FrameGrab;
 import org.jcodec.common.model.Picture;
-import org.jcodec.scale.AWTUtil;
 
 public class ImageConverter {
 	
@@ -26,7 +25,8 @@ public class ImageConverter {
 		try {
 			Picture picture = FrameGrab.getFrameFromFile(
 					new File(filename), frameNumber);
-			return AWTUtil.toBufferedImage(picture);
+			
+			return org.jcodec.scale.AWTUtil.toBufferedImage(picture);
 			
 		} catch (Exception e) {
 			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);

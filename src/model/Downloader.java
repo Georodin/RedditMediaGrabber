@@ -62,7 +62,7 @@ public class Downloader {
 
 	
 	public static ArrayList<String> downloadGallery(String urlstring, String path, String date, String subreddit) {
-		ArrayList<String> fileNames = new ArrayList<>();
+		ArrayList<String> fileNames = new ArrayList<String>();
 		boolean first = true;
 		try {
 			Document doc = Jsoup.connect(urlstring).get();
@@ -106,7 +106,7 @@ public class Downloader {
 	}
 	
 	public static ArrayList<String> downloadGIFV(String urlstring, String path, String date, String subreddit) {
-		ArrayList<String> fileNames = new ArrayList<>();
+		ArrayList<String> fileNames = new ArrayList<String>();
 		
 		try {
 			Document doc = Jsoup.connect(urlstring).get();
