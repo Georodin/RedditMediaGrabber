@@ -24,10 +24,6 @@ public class MainRoutine {
 			Path path = Paths.get(controller.getRp().getPath()+File.separator+subReddit.subReddit);
 			Path path_previews = Paths.get(controller.getRp().getPath()+File.separator+subReddit.subReddit+File.separator+"previews");
 			
-			
-			//System.out.println(path);
-			//System.out.println(path_previews);
-			
 			if(!Files.exists(path)) {
 				try {
 					Files.createDirectories(path);
