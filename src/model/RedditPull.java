@@ -2,7 +2,9 @@ package model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -90,8 +92,17 @@ public class RedditPull implements Serializable {
 	public int getProgressPercent() {
 		Duration duration;
 		try {
+			
+			if(nextPull==null) {
+				if(lastPull==null) {
+					lastPull = LocalDateTime.now();
+				}
+				nextPull = lastPull.plus(minutesInterval, ChronoUnit.MINUTES);
+			}
+			
 			duration = Duration.between(LocalDateTime.now(), nextPull);
 		} catch (Exception e) {
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 			return 0;
 		}
 		
