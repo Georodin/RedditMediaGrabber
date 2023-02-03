@@ -12,11 +12,18 @@ import java.time.format.DateTimeFormatter;
 
 public class LogUtility {
 	public static void newLineToLog(Object message) {
-	    String converted = (String) message.toString();
+		String converted;
+		if(message!=null) {
+			converted = (String) message.toString();
+		}else {
+			converted = "Warning: Passed a null object to the LogUtility.";
+		}
+		 
 		
 		try {
-		   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		   LocalDateTime now = LocalDateTime.now();  
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+			LocalDateTime now = LocalDateTime.now();  
 			
 			FileWriter fw = new FileWriter(System.getProperty("user.dir")+"/log.txt", true);
 		    BufferedWriter bw = new BufferedWriter(fw);
@@ -31,7 +38,13 @@ public class LogUtility {
 	}
 	
 	public static void newLineToErrorLog(Object message) {
-		String converted = (String) message.toString();
+		
+		String converted;
+		if(message!=null) {
+			converted = (String) message.toString();
+		}else {
+			converted = "Warning: Passed a null object to the LogUtility.";
+		}
 		
 		try {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
