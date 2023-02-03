@@ -1,13 +1,17 @@
 package view;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,11 +38,12 @@ public class MainView {
 	Windows windows;
 	Controller controller;
 
-	JMenuItem openViewer, xamppPath, reset, openDownload, openLog;
+	JMenuItem openViewer, xamppPath, reset, resetSQL, openDownload, openLog;
 	private JMenuBar menu_bar;
 	private JMenu menu;
 
 	private ResetWindow resetWindow;
+	private ResetSQLWindow resetSQLWindow;
 
 	public MainView(Controller controller) {
 		this.controller = controller;
@@ -70,9 +75,7 @@ public class MainView {
 			};
 
 			public void windowIconified(WindowEvent e) {// Window minimized event
-				controller.saveProfile();
-				System.exit(0);
-
+				frame.setVisible(false);
 			}
 		});
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -82,6 +85,21 @@ public class MainView {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setLayout(new BorderLayout());
+		
+		TrayIcon trayIcon;
+		try {
+			trayIcon = new TrayIcon(ImageIO.read(getClass().getResource("/icons/icon_16.png")), "Reddit Grabber");
+			SystemTray systemTray = SystemTray.getSystemTray();
+			systemTray.add(trayIcon);
+			trayIcon.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent e) {
+			        frame.setVisible(true);
+			        frame.setExtendedState(JFrame.NORMAL);
+			    }
+			});
+		} catch (Exception e) {
+			StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); e.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
+		}
 
 		menu_bar = new JMenuBar();
 		menu = new JMenu("Options");
@@ -93,7 +111,7 @@ public class MainView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					java.awt.Desktop.getDesktop().browse(new URI("http://localhost/redditgrabber"));
+					java.awt.Desktop.getDesktop().browse(new URI("http://127.0.0.1/redditgrabber"));
 				} catch (Exception ex) {
 					StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw); ex.printStackTrace(pw); LogUtility.newLineToErrorLog(sw);
 				}
@@ -108,6 +126,19 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				new XamppUtility().dialogXamppPath(controller);
 
+			}
+		});
+		
+		
+		resetSQL = new JMenuItem("Reset SQL-Tables");
+
+		resetSQL.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (getResetSQLWindow() == null) {
+					setResetSQLWindow(new ResetSQLWindow("Do you really want to reset?", controller));
+				}
 			}
 		});
 
@@ -152,6 +183,7 @@ public class MainView {
 		menu.add(openViewer);
 		menu.add(xamppPath);
 		menu.add(reset);
+		menu.add(resetSQL);
 		menu.add(openDownload);
 		menu.add(openLog);
 
@@ -178,5 +210,13 @@ public class MainView {
 
 	void setResetWindow(ResetWindow resetWindow) {
 		this.resetWindow = resetWindow;
+	}
+
+	public ResetSQLWindow getResetSQLWindow() {
+		return resetSQLWindow;
+	}
+
+	public void setResetSQLWindow(ResetSQLWindow resetSQLWindow) {
+		this.resetSQLWindow = resetSQLWindow;
 	}
 }
