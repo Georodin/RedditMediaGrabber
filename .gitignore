@@ -6,3 +6,5 @@ faulty.txt
 log.txt
 reddit.profile
 tmp.conf
+/.gradle/
+errorLog.txt
